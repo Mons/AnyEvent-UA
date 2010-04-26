@@ -75,7 +75,7 @@ sub new {
 #		'accept-language' => 'ru,en-us;q=0.8,en;q=0.5,ru-ru;q=0.3',
 #		'accept-encoding' => 'gzip',
 		'accept-charset'  => 'utf-8,windows-1251;q=0.7,*;q=0.7',
-		connection => 'keep-alive',
+		'connection' => 'keep-alive',
 		%{ $args{headers} || {} },
 	};
 	$self->{cv} = $args{cv} || AE::cv;
@@ -345,6 +345,22 @@ sub rr2 {
 							#http_request ($method => $hdr{location}, %arg, recurse => $recurse - 1, $cb);
 							warn "Redirect => $hdr->{location}";
 						} else {
+							if (exists $_[1]{'content-encoding'}) {
+								if (lc($_[1]{'content-encoding'}) =~ /^(?:x-)?gzip$/) {
+									eval{
+										my $def = Compress::Zlib::memGunzip($_[0]);
+										if (defined $def) {
+											$_[0] = $def;
+											#warn "Page deflated from $hdr->{'content-encoding'}" if $self->{debug};
+											1;
+										} else { 0 }
+									} or do {
+										warn "Deflate failed: $@";
+									}
+								} else {
+									warn "Unsupported content-encoding method: $_[1]{'content-encoding'}";
+								}
+							}
 							$r->{cb}($_[0], $_[1]);
 						}
 						$self->rr2($id);
