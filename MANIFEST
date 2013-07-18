@@ -1,9 +1,11 @@
 Changes
-MANIFEST
-Makefile.PL
-README
 lib/AnyEvent/UA.pm
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+README
 t/00-load.t
+t/boilerplate.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t

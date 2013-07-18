@@ -27,7 +27,7 @@ package AnyEvent::UA;
 
 #use strict;
 #use warnings;
-use uni::perl ':dumper';
+use common::sense;
 
 use AE;
 use AnyEvent::DNS;
@@ -40,27 +40,24 @@ use Scalar::Util 'weaken';
 
 =head1 NAME
 
-AnyEvent::UA - The great new AnyEvent::UA!
-
-=head1 VERSION
-
-Version 0.01
+AnyEvent::UA - HTTP/1.1 UserAgent using AnyEvent
 
 =cut
 
-our $VERSION = '0.01';
-
+our $VERSION = '0.01_01';$VERSION = eval($VERSION);
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+    Full docs to be done, so just an example.
+    
+    my $ua = AnyEvent::UA->new();
+    $ua->req(GET => 'HTTP://www.google.ru:80', cb => sub {
+        my ($body,$headers) = @_;
+    });
 
-Perhaps a little code snippet.
+=head1 DESCRIPTION
 
-    use AnyEvent::UA;
-
-    my $foo = AnyEvent::UA->new();
-    ...
+This module is alpha quality. It was not tested perfectly. Use it on your own risk. Interfaces and implementation may be changed.
 
 =cut
 
@@ -661,6 +658,7 @@ Mons Anderson, C<< <mons at cpan.org> >>
 
 =head1 ACKNOWLEDGEMENTS
 
+Many parts of this module was derived from L<AnyEvent::HTTP>
 
 =head1 LICENSE
 

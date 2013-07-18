@@ -1,13 +1,17 @@
-use inc::Module::Install;
+use 5.008008;
+use ExtUtils::MakeMaker;
 
-name     'AnyEvent-UA';
-all_from 'lib/AnyEvent/UA.pm';
-author   q{Mons Anderson <mons@cpan.org>};
-license  'perl';
+$ENV{AUTHOR} and require CPAN::Meta;
 
-build_requires 'Test::More';
-
-auto_install;
-
-WriteAll;
-
+WriteMakefile(
+	NAME              => 'AnyEvent::UA',
+	VERSION_FROM      => 'lib/AnyEvent/UA.pm', # finds $VERSION
+	ABSTRACT_FROM     => 'lib/AnyEvent/UA.pm', # retrieve abstract from module
+	PREREQ_PM         => {
+		'AnyEvent' => 5,
+		'HTTP::Easy' => 0,
+		'Scalar::Util' => 0,
+		'common::sense' => 2,
+	},
+	AUTHOR            => 'Mons Anderson <mons@cpan.org>',
+);
