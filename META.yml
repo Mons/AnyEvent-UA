@@ -22,4 +22,4 @@ requires:
   HTTP::Easy: 0
   Scalar::Util: 0
   common::sense: 2
-version: 0.0101
+version: 0.01_01

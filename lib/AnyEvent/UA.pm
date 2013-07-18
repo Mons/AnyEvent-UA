@@ -44,7 +44,7 @@ AnyEvent::UA - HTTP/1.1 UserAgent using AnyEvent
 
 =cut
 
-our $VERSION = '0.01_01';$VERSION = eval($VERSION);
+our $VERSION = '0.01_01';#$VERSION = eval($VERSION);
 
 =head1 SYNOPSIS
 
