@@ -287,6 +287,9 @@ sub rr2 {
 			return $r->error(599, "Proxy not implemented");
 		} else {
 			my $path = $r->{uri}->path_query;
+			my $cookie = $self->{cookie}->encode($self->{cookie}, host => $con->{host}, path => $path);
+			$r->{headers}{cookie} = $cookie if $cookie;
+
 			$con->{h}->push_write (
 				"$r->{method} $path HTTP/1.1\015\012" .
 				$r->{headers}->encode . "\015\012" .
