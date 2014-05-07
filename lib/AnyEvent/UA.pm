@@ -168,7 +168,8 @@ sub req {
 	my ($host, $port, $scheme, $path, $host_header) = $self->decode_uri($uri)
 		or return $e->(599);
 	
-	my $headers  = HTTP::Easy::Headers->new( { %{$self->{headers}}, host => $host_header } );
+	my %computed_headers = $method eq 'POST' ? ('content-length'=> length ($args{body}//'') ) : ();
+	my $headers  = HTTP::Easy::Headers->new( { %{$self->{headers}}, host => $host_header, %computed_headers } );
 	warn "($host, $port, $scheme, $path) \n";
 	my $conkey = "$host:$port";
 	my $id;
